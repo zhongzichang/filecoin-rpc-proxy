@@ -7,6 +7,7 @@ GOPATH_DEFAULT 		:= $(PWD)/.go
 export GOPATH 		?= $(GOPATH_DEFAULT)
 GOBIN_DEFAULT 		:= $(GOPATH)/bin
 export GOBIN 		?= $(GOBIN_DEFAULT)
+PATH				:= $(GOBIN):$(PATH)
 export GO111MODULE 	:= on
 TEST_ARGS_DEFAULT 	:= -v -race
 TEST_ARGS 			?= $(TEST_ARGS_DEFAULT)
