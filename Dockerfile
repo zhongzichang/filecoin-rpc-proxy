@@ -14,11 +14,15 @@ ARG VERSION=0.0.1
 ADD . /build/
 RUN cd /build && VERSION=${VERSION} BINARY=${APPNAME} make build
 
-FROM scratch
+FROM alpine
 ENV USER=proxy APPNAME=proxy APPDIR=/app
+
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/* && update-ca-certificates
+
 COPY --from=builder /build/${APPNAME} ${APPDIR}/
 COPY --from=builder /etc/passwd /etc/passwd
+COPY config.yaml /home/proxy/config.yaml
+
 WORKDIR ${APPDIR}
 USER ${USER}
-#CMD ["/bin/sh","-c","/app/proxy"]
 ENTRYPOINT ["/app/proxy"]

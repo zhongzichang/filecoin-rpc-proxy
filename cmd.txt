@@ -2,3 +2,22 @@ docker build -t filecoin-rpc-proxy:0.0.1 --build-arg GO111MODULE=on --build-arg 
 
 
 docker run -p 6080:8080 filecoin-rpc-proxy:0.0.1
+
+
+// for testing
+
+curl -X POST 'http://localhost:8080' \
+    -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBbGxvdyI6WyJyZWFkIl19.eM9l5gjaGPuSlv_Geo4DrHOI1xgAk3fq0gyMvZY0TWU' \
+    --data '{"jsonrpc":"2.0","id":1,"method":"Filecoin.ChainHead","params":[]}'
+
+curl -X POST 'http://localhost:8080' \
+    -H 'Content-Type: application/json' \
+    --data '{"jsonrpc":"2.0","id":1,"method":"Filecoin.ChainHead","params":[]}'
+
+
+curl -X POST 'http://xrsy:19999' \
+    -H 'Content-Type: application/json' \
+    --data '{"jsonrpc":"2.0","id":1,"method":"Filecoin.ChainHead","params":[]}'
+
+curl -X POST 'https://rpc-fvm.sftproject.io/rpc/v1' -H 'Content-Type: application/json'    --data '{"jsonrpc":"2.0","id":1,"method":"Filecoin.ChainHead","params":[]}'
